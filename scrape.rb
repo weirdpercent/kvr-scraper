@@ -1,8 +1,6 @@
 require 'metainspector'
 # this script adds a product link to a text file for each free product on kvr
-def process(query)
-end
-
+print 'Running'
 query='http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t'
 kvr=MetaInspector.new(query) # crawl kvr query
 kvrlinks=kvr.links # just the links
@@ -31,6 +29,7 @@ plinks.each do |x|
   name=suffix.gsub(/\/review\/\d{4}/, "") # strip reviews
   pnames.push name # push it to pnames
   file.print "#{x}\n"
+  print '.'
 end
 file.close
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=500"
@@ -60,6 +59,7 @@ plinks.each do |x|
   name=suffix.gsub(/\/review\/\d{4}/, "") # strip reviews
   pnames.push name # push it to pnames
   file.print "#{x}\n"
+  print '.'
 end
 file.close
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=1000"
@@ -89,6 +89,7 @@ plinks.each do |x|
   name=suffix.gsub(/\/review\/\d{4}/, "") # strip reviews
   pnames.push name # push it to pnames
   file.print "#{x}\n"
+  print '.'
 end
 file.close
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=1500"
@@ -118,6 +119,7 @@ plinks.each do |x|
   name=suffix.gsub(/\/review\/\d{4}/, "") # strip reviews
   pnames.push name # push it to pnames
   file.print "#{x}\n"
+  print '.'
 end
 file.close
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=2000"
@@ -147,6 +149,7 @@ plinks.each do |x|
   name=suffix.gsub(/\/review\/\d{4}/, "") # strip reviews
   pnames.push name # push it to pnames
   file.print "#{x}\n"
+  print '.'
 end
 file.close
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=2500"
@@ -176,5 +179,7 @@ plinks.each do |x|
   name=suffix.gsub(/\/review\/\d{4}/, "") # strip reviews
   pnames.push name # push it to pnames
   file.print "#{x}\n"
+  print '.'
 end
 file.close
+print 'done.'
