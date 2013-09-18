@@ -1,7 +1,13 @@
 source 'https://rubygems.org'
 
 gem 'bundler', '~>1.3.5'
-gem 'coveralls', require: false
+gem 'coveralls'
 gem 'metainspector', '~>1.16.0'
 gem 'rake', '~>10.1.0'
-gem 'thor'
+
+group :development do
+  gem 'rspec'
+  gem 'cucumber', '~>1.3.8'
+  gem 'spinach', '~>0.8.5'
+  gem 'gherkin', '~>2.12.1'
+end
