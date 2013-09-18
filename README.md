@@ -1,5 +1,5 @@
 # reparcs nigulp #
-[![build status](https://travis-ci.org/weirdpercent/reparcs-nigulp.png)](http://travis-ci.org/weirdpercent/reparcs-nigulp)[![dep status](https://gemnasium.com/weirdpercent/reparcs-nigulp.png)](http://gemnasium.com/weirdpercent/reparcs-nigulp)[![cov status](https://coveralls.io/repos/weirdpercent/reparcs-nigulp/badge.png)](https://coveralls.io/r/weirdpercent/reparcs-nigulp)
+[![build status](https://travis-ci.org/weirdpercent/reparcs-nigulp.png?branch=master)](https://travis-ci.org/weirdpercent/reparcs-nigulp)[![dependencies](https://gemnasium.com/weirdpercent/reparcs-nigulp.png)](https://gemnasium.com/weirdpercent/reparcs-nigulp)[![coverage](https://coveralls.io/repos/weirdpercent/reparcs-nigulp/badge.png)](https://coveralls.io/r/weirdpercent/reparcs-nigulp)
 
 snigulp is an audio plugin database like [KVR Audio](http://www.kvraudio.com/). This is the KVR scraper module.
 
