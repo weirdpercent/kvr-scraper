@@ -7,6 +7,7 @@ gem 'rake', '~>10.1.0'
 
 group :development do
   gem 'rspec'
+  gem 'factory_girl'
   gem 'cucumber', '~>1.3.8'
   gem 'spinach', '~>0.8.5'
   gem 'gherkin', '~>2.12.1'

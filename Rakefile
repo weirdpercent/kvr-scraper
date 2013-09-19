@@ -1,4 +1,4 @@
-require './scrape.rb'
+require './lib/scrape'
 
 desc "run app"
 task :app do
