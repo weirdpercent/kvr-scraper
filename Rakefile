@@ -1,8 +1,9 @@
-require './lib/scrape'
+require './lib/scrape.rb'
+require './lib/scrape2.rb'
 
-desc "run app"
-task :app do
-  # nil
+desc "run stage one"
+task :one do
+  nil
 end
 
-task :default => :app
+task :default => :one
