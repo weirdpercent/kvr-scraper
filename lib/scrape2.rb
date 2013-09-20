@@ -1,7 +1,7 @@
 require 'metainspector'
 
-class Proc(plinks.txt)
-  def initialize
+class Proc
+  def initialize(plinks.txt)
     print 'Processing plinks.txt'
     filename='plinks.txt'
     tmp='tmp.txt'

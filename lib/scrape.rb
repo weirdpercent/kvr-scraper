@@ -1,8 +1,8 @@
 require 'metainspector'
 # this script adds a product link to a text file for each free product on kvr
 query='http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t'
-class One(query)
-  def initialize do
+class One
+  def initialize(query)
     print 'Running'
     kvr=MetaInspector.new(query) # crawl kvr query
     kvrlinks=kvr.links # just the links
@@ -37,8 +37,8 @@ class One(query)
   end
 end
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=500"
-class Two(query)
-  def initialize do
+class Two
+  def initialize(query)
     kvr=MetaInspector.new(query) # 2nd page
     kvrlinks=kvr.links # just the links
     plinks=[]
@@ -71,8 +71,8 @@ class Two(query)
   end
 end
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=1000"
-class Three(query)
-  def initialize do
+class Three
+  def initialize(query)
     kvr=MetaInspector.new(query) # 3rd page
     kvrlinks=kvr.links # just the links
     plinks=[]
@@ -105,8 +105,8 @@ class Three(query)
   end
 end
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=1500"
-class Four(query)
-  def initialize do
+class Four
+  def initialize(query)
     kvr=MetaInspector.new(query) # 4th page
     kvrlinks=kvr.links # just the links
     plinks=[]
@@ -139,8 +139,8 @@ class Four(query)
   end
 end
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=2000"
-class Five(query)
-  def initialize do
+class Five
+  def initialize(query)
     kvr=MetaInspector.new(query) # 5th page
     kvrlinks=kvr.links # just the links
     plinks=[]
@@ -173,8 +173,8 @@ class Five(query)
   end
 end
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=2500"
-class Six(query)
-  def initialize do
+class Six
+  def initialize(query)
     kvr=MetaInspector.new(query) # 6th page
     kvrlinks=kvr.links # just the links
     plinks=[]
