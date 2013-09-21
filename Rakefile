@@ -1,6 +1,5 @@
-require './lib/scrape.rb'
-require './lib/scrape2.rb'
-
+require './scrape.rb'
+require './scrape2.rb'
 desc "run stage one"
 task :one do
   nil
