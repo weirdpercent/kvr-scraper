@@ -1,2 +1,4 @@
-Gemfile.lock
 .coveralls.yml
+Gemfile.lock
+Gemfile~
+.idea

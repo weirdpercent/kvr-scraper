@@ -3,10 +3,11 @@ require 'metainspector'
 print 'Stage Two'
 lnk='plinks.txt'
 plinks=File.readlines(lnk)
-x=1
+x=0
 y=plinks.length
+y=y-1
 while x <= y
-  query=plinks[x.to_i]
+  query=plinks.fetch(x)
   query.chomp
   kvr=MetaInspector.new(query)
   hash=kvr.to_hash
