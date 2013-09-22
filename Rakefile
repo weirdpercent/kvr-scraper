@@ -1,6 +1,6 @@
-require './scrape.rb'
+require './scrape1.rb'
 require './scrape2.rb'
-desc "run stage one"
+desc "run program"
 task :one do
   nil
 end

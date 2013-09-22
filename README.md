@@ -4,9 +4,12 @@
 snigulp is an audio plugin database like [KVR Audio](http://www.kvraudio.com/). This is the KVR scraper module.
 
 * First stage works, it saves the link for each released, free product on KVR to plinks.txt.
-* Second stage is in progress, scraping data for each product into JSON.
+* Second stage works, scraping data for each product into a JSON file.
 
-TODO:
+## ToDo: ##
 
 * Write tests
-* Loop stage 1 to reduce length? First attempt was unsuccessful
+
+## Gratitude ##
+
+Many thanks to the authors of the gems used in this module!
