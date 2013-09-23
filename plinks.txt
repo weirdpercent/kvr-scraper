@@ -498,6 +498,11 @@ http://www.kvraudio.com/product/sg-tadf1-by-synthgeek
 http://www.kvraudio.com/product/sg-corruptor-by-synthgeek
 http://www.kvraudio.com/product/sg-noisebot-by-synthgeek
 http://www.kvraudio.com/product/sg-2stage-by-synthgeek
+http://www.kvraudio.com/product/littleone-by-xhun-audio/reviews/3914
+http://www.kvraudio.com/product/uno_fm_by_synthtronic/reviews/3912
+http://www.kvraudio.com/product/vsthost-by-hermann-seib/reviews/3910
+http://www.kvraudio.com/product/mlimiter-by-meldaproduction/reviews/3907
+http://www.kvraudio.com/product/t-force-trance-gate-by-mastrcode-music/reviews/3905
 http://www.kvraudio.com/product/sg-apcx2-by-synthgeek
 http://www.kvraudio.com/product/sg-grainbot-by-synthgeek
 http://www.kvraudio.com/product/cz-noize-by-icebreaker-audio
@@ -1498,12 +1503,6 @@ http://www.kvraudio.com/product/takim_by_safwan_matni
 http://www.kvraudio.com/product/vu2_by_starplugs
 http://www.kvraudio.com/product/vl1_by_polyvalens
 http://www.kvraudio.com/product/artemis_by_b_serrano
-http://www.kvraudio.com/product/deep-step-606-by-sonicxtc
-http://www.kvraudio.com/product/g2500-by-gemini-audio
-http://www.kvraudio.com/product/soneq-pro-by-sonimus
-http://www.kvraudio.com/product/mmultibandcomb-by-meldaproduction
-http://www.kvraudio.com/product/sparkverb-by-uvi
-http://www.kvraudio.com/product/prizm-by-wobblophones
 http://www.kvraudio.com/product/soundberg_by_kl
 http://www.kvraudio.com/product/nweqdj_by_wwaym
 http://www.kvraudio.com/product/super_spook_keys_by_simple_media
