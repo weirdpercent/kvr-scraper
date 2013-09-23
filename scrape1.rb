@@ -22,7 +22,7 @@ class First
         plinks.push x
       end
     end
-    filename="plinks.txt"
+    filename="alllinks.txt" #write to big list of 2500+ products
     if File.exist?(filename) == true
       file=File.open(filename, "a")
     else
@@ -34,22 +34,28 @@ class First
       name=suffix.gsub(/\/review\/\d{4}/, "") # strip reviews
       pnames.push name # push it to pnames
       file.print "#{x}\n"
-      print '.'
     end
     file.close
   end
 end
+print '.'
 Scraper=First.new()
 query='http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t'
+print '.'
 Scraper.kvrquery(query)
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=500"
+print '.'
 Scraper.kvrquery(query)
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=1000"
+print '.'
 Scraper.kvrquery(query)
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=1500"
+print '.'
 Scraper.kvrquery(query)
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=2000"
+print '.'
 Scraper.kvrquery(query)
 query="http://www.kvraudio.com/q.php?search=1&pr[]=f&av[]=re&sh[]=s&ob[]=dan&lm[]=500&bl[]=t&start=2500"
+print '.'
 Scraper.kvrquery(query)
 puts 'done.'

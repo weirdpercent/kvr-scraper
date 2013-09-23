@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'bundler'
 gem 'coveralls', require: false
 gem 'json'
+gem 'couchrest'
 gem 'metainspector'
 gem 'rake'
 
