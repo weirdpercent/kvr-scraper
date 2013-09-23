@@ -6,6 +6,7 @@ gem 'json'
 gem 'couchrest'
 gem 'metainspector'
 gem 'rake'
+gem 'simplecov'
 
 group :development do
   gem 'cucumber'
