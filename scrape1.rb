@@ -1,6 +1,6 @@
 require 'metainspector'
 # this script adds a product link to a text file for each free product on kvr
-print 'Stage One'
+print 'Stage one'
 class First
   def kvrquery(query)
     kvr=MetaInspector.new(query) # crawl kvr query

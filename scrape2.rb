@@ -1,7 +1,7 @@
 require 'json'
 require 'json/pure'
 require 'metainspector'
-print 'Stage Two'
+print 'Stage two'
 lnk='plinks.txt'
 plinks=File.readlines(lnk)
 x=0
