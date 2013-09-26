@@ -5,6 +5,7 @@ gem 'coveralls', require: false
 gem 'json'
 gem 'couchrest'
 gem 'metainspector'
+gem 'oauth-plugin'
 gem 'rake'
 gem 'simplecov'
 
