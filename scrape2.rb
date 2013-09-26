@@ -1,6 +1,5 @@
 require 'json/add/core'
 require 'json/pure'
-require 'json/add/rails'
 require 'metainspector'
 print 'Stage two'
 lnk='plinks.txt'
