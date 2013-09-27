@@ -27,11 +27,12 @@ while x <= y
   name.delete('og:image')
   name.delete('msapplication_tilecolor')
   name.delete('msapplication_tileimage')
+  extr=hash['external_links']
+  extr=extr.last
+  hash['external_links']=extr
   meta=hash.merge(name) #and all elements together
   meta['link']=meta['url']
   meta['plink']=meta['external_links']
-  ext=meta['plink'].last
-  meta['plink']=ext
   meta['tags']=meta['keywords']
   keyw=meta['tags'].split(', ') #now only array in hash
   meta['tags']=keyw
@@ -49,8 +50,21 @@ while x <= y
   meta.delete('keywords')
   meta.delete('og:title')
   meta.delete('og:description') #ditch original keys
-  meta=meta.sort #ugh, that was an ordeal
-  tofile=JSON.pretty_generate(meta)
+  meta=meta.sort #meta is now an array of arrays, that won't do
+  atitle=meta.assoc('atitle')
+  dev=meta.assoc('dev')
+  link=meta.assoc('link')
+  plink=meta.assoc('plink')
+  summary=meta.assoc('summary')
+  tags=meta.assoc('tags')
+  newhash={}
+  newhash['atitle']=atitle[1] #nice clean hash to_json
+  newhash['dev']=dev[1]
+  newhash['link']=link[1]
+  newhash['plink']=plink[1]
+  newhash['summary']=summary[1]
+  newhash['tags']=tags[1] #ugh, that was an ordeal
+  tofile=JSON.pretty_generate(newhash) #make it more readable
   filename="json/#{x}.json"
   file=File.new(filename, "w+")
   file.print tofile
