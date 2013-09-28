@@ -1,9 +1,11 @@
 require 'json/add/core'
 require 'json/pure'
+require 'couchrest'
 require 'metainspector'
 print 'Stage two'
 lnk='plinks.txt'
 plinks=File.readlines(lnk)
+#@db=CouchRest.database('http://127.0.0.1:5984/snigulp')
 x=0
 y=plinks.length
 y-=1 #zero to y
@@ -56,7 +58,7 @@ while x <= y
   link=meta.assoc('link')
   plink=meta.assoc('plink')
   summary=meta.assoc('summary')
-  tags=meta.assoc('tags')
+  tags=meta.assoc('tags') #extract each from array
   newhash={}
   newhash['atitle']=atitle[1] #nice clean hash to_json
   newhash['dev']=dev[1]
@@ -65,6 +67,7 @@ while x <= y
   newhash['summary']=summary[1]
   newhash['tags']=tags[1] #ugh, that was an ordeal
   tofile=JSON.pretty_generate(newhash) #make it more readable
+  #response=@db.save_doc(tofile) #push to couch
   filename="json/#{x}.json"
   file=File.new(filename, "w+")
   file.print tofile

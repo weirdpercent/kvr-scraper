@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 
 gem 'bundler'
-gem 'coveralls', require: false
-gem 'json'
 gem 'couchrest'
+gem 'coveralls', require: false
+gem 'jimson'
+gem 'json'
 gem 'metainspector'
-gem 'oauth-plugin'
 gem 'rake'
 gem 'simplecov'
 

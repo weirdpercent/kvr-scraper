@@ -1,6 +1,6 @@
 coverage
-.coveralls.yml
 Gemfile.lock
 Gemfile~
 .idea
 alllinks.txt
+couch.rb
