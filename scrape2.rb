@@ -5,7 +5,6 @@ require 'metainspector'
 print 'Stage two'
 lnk='plinks.txt'
 plinks=File.readlines(lnk)
-#@db=CouchRest.database('http://127.0.0.1:5984/snigulp')
 x=0
 y=plinks.length
 y-=1 #zero to y
@@ -30,7 +29,8 @@ while x <= y
   name.delete('msapplication_tilecolor')
   name.delete('msapplication_tileimage')
   extr=hash['external_links']
-  extr=extr.last
+  extr=extr.reject {|url| url =~ /KVR-Audio/}
+  extr=extr.reject {|url| url =~ /kvraudio/}
   hash['external_links']=extr
   meta=hash.merge(name) #and all elements together
   meta['link']=meta['url']
@@ -40,11 +40,9 @@ while x <= y
   meta['tags']=keyw
   meta['atitle']=meta['og:title'] 
   ntitle=meta['atitle'].gsub(/ -  Details/, '')
-  meta['atitle']=ntitle
-  dsplit=meta['atitle'].split(/ by /) #take values and leave the rest
+  dsplit=ntitle.split(/ by /) #take values and leave the rest
   meta['atitle']=dsplit[0].to_s
   meta['dev']=dsplit[1].to_s #new pair
-  meta['summary']=meta['og:description']
   about=pdoc.at_css('.kvrproductimages').parent.text #Nokogiri hack
   meta['summary']=about #replace with complete product info
   meta.delete('url')
@@ -67,10 +65,9 @@ while x <= y
   newhash['summary']=summary[1]
   newhash['tags']=tags[1] #ugh, that was an ordeal
   tofile=JSON.pretty_generate(newhash) #make it more readable
-  #response=@db.save_doc(tofile) #push to couch
   filename="json/#{x}.json"
   file=File.new(filename, "w+")
-  file.print tofile
+  file.print tofile #Et voilà! Product info in JSON format.
   file.close
   x+=1
   print '.'
