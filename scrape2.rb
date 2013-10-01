@@ -72,7 +72,7 @@ class Txt
   end
 end
 class Plinko
-  def css(pdoc, format, os)
+  def type(pdoc, format)
     parsed=Parsed.new
     if parsed.vst(pdoc) != nil then format.push "VST"; end
     if parsed.vst3(pdoc) != nil then format.push "VST3"; end
@@ -85,6 +85,9 @@ class Plinko
     if parsed.aax(pdoc) != nil then format.push "AAX"; end
     if parsed.dssi(pdoc) != nil then format.push "DSSI"; end
     if parsed.re(pdoc) != nil then format.push "Rack Extension"; end
+  end
+  def platform(pdoc, os)
+    parsed=Parsed.new
     if parsed.win(pdoc) != nil then os.push "Windows"; end
     if parsed.win64(pdoc) != nil then os.push "Windows x64"; end
     if parsed.mac(pdoc) != nil then os.push "Mac OSX"; end
@@ -93,7 +96,7 @@ class Plinko
     if parsed.ios(pdoc) != nil then os.push "iOS"; end
     if parsed.droid(pdoc) != nil then os.push "Android"; end
   end
-  def text(ptext, cando)
+  def function(ptext, cando)
     txt=Txt.new
     if txt.inst(ptext) != nil then cando.push "Instrument"; end
     if txt.eff(ptext) != nil then cando.push "Effect"; end
@@ -111,14 +114,14 @@ while x <= y
   format=[]
   cando=[]
   os=[]
-  query=plinks[x]
-  query.chomp
+  query=plinks[x].chomp
   kvr=MetaInspector.new(query)
   pdoc=kvr.parsed_document
   ptext=pdoc.text
   plinko=Plinko.new
-  plinko.css(pdoc, format, os)
-  plinko.text(ptext, cando)
+  plinko.type(pdoc, format)
+  plinko.platform(pdoc, os)
+  plinko.function(ptext, cando)
   hash=kvr.to_hash #great start, but it needs alot of work
   hash.delete('title')
   hash.delete('links')
