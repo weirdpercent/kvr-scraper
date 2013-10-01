@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'bundler'
 gem 'couchrest'
+gem 'coveralls', require: false
 gem 'json'
 gem 'json_pure'
 gem 'metainspector'
