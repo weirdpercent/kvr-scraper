@@ -13,6 +13,11 @@ class First
       end
     end
     kvrlinks.each do |x|
+      if x =~ /reviews\/\d*/
+        kvrlinks.delete(x)
+      end
+    end
+    kvrlinks.each do |x|
       if x =~ /developer/ #if it's a developer link
       kvrlinks.delete(x)
       end

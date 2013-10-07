@@ -1,4 +1,5 @@
 coverage
 .idea
 alllinks.txt
-couch.rb
+iris.txt
+skipped.txt

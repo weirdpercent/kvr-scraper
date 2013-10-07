@@ -1,6 +1,8 @@
 require 'json/add/core'
 require 'json/pure'
+require 'couchrest'
 require 'metainspector'
+
 class Parsed #The dreaded CSS selector class! Why did KVR have to use images?!
   def win(pdoc)
     pdoc.at_css(".sp1b")
@@ -72,146 +74,160 @@ class Txt
   end
 end
 class Pachinko #Ever played Pachinko?
-  def type(pdoc, format)
+  def type(pdoc, formats)
     parsed=Parsed.new
-    if parsed.vst(pdoc) != nil then format.push "VST"; end
-    if parsed.vst3(pdoc) != nil then format.push "VST3"; end
-    if parsed.au(pdoc) != nil then format.push "Audio Unit"; end
-    if parsed.dx(pdoc) != nil then format.push "DirectX"; end
-    if parsed.rtas(pdoc) != nil then format.push "RTAS"; end
-    if parsed.ladspa(pdoc) != nil then format.push "LADSPA"; end
-    if parsed.lv2(pdoc) != nil then format.push "LV2"; end
-    if parsed.rewire(pdoc) != nil then format.push "ReWire"; end
-    if parsed.aax(pdoc) != nil then format.push "AAX"; end
-    if parsed.dssi(pdoc) != nil then format.push "DSSI"; end
-    if parsed.re(pdoc) != nil then format.push "Rack Extension"; end
+    if parsed.vst(pdoc) != nil then formats.push "VST"; end
+    if parsed.vst3(pdoc) != nil then formats.push "VST3"; end
+    if parsed.au(pdoc) != nil then formats.push "Audio Unit"; end
+    if parsed.dx(pdoc) != nil then formats.push "DirectX"; end
+    if parsed.rtas(pdoc) != nil then formats.push "RTAS"; end
+    if parsed.ladspa(pdoc) != nil then formats.push "LADSPA"; end
+    if parsed.lv2(pdoc) != nil then formats.push "LV2"; end
+    if parsed.rewire(pdoc) != nil then formats.push "ReWire"; end
+    if parsed.aax(pdoc) != nil then formats.push "AAX"; end
+    if parsed.dssi(pdoc) != nil then formats.push "DSSI"; end
+    if parsed.re(pdoc) != nil then formats.push "Rack Extension"; end
   end
-  def platform(pdoc, os)
+  def os(pdoc, platform)
     parsed=Parsed.new
-    if parsed.win(pdoc) != nil then os.push "Windows"; end
-    if parsed.win64(pdoc) != nil then os.push "Windows x64"; end
-    if parsed.mac(pdoc) != nil then os.push "Mac OSX"; end
-    if parsed.mac64(pdoc) != nil then os.push "Mac x64"; end
-    if parsed.lin(pdoc) != nil then os.push "Linux"; end
-    if parsed.ios(pdoc) != nil then os.push "iOS"; end
-    if parsed.droid(pdoc) != nil then os.push "Android"; end
+    if parsed.win(pdoc) != nil then platform.push "Windows"; end
+    if parsed.win64(pdoc) != nil then platform.push "Windows x64"; end
+    if parsed.mac(pdoc) != nil then platform.push "Mac OSX"; end
+    if parsed.mac64(pdoc) != nil then platform.push "Mac x64"; end
+    if parsed.lin(pdoc) != nil then platform.push "Linux"; end
+    if parsed.ios(pdoc) != nil then platform.push "iOS"; end
+    if parsed.droid(pdoc) != nil then platform.push "Android"; end
   end
-  def function(ptext, cando)
+  def function(ptext, capabilities)
     txt=Txt.new
-    if txt.inst(ptext) != nil then cando.push "Instrument"; end
-    if txt.eff(ptext) != nil then cando.push "Effect"; end
-    if txt.chinst(ptext) != nil then cando.push "Instrument Host"; end
-    if txt.cheff(ptext) != nil then cando.push "Effect Host"; end
+    if txt.inst(ptext) != nil then capabilities.push "Instrument"; end
+    if txt.eff(ptext) != nil then capabilities.push "Effect"; end
+    if txt.chinst(ptext) != nil then capabilities.push "Instrument Host"; end
+    if txt.cheff(ptext) != nil then capabilities.push "Effect Host"; end
   end
 end
-print 'Stage two'
+print 'Stage two.'
 lnk='plinks.txt'
 plinks=File.readlines(lnk)
 x=0
 y=plinks.length
 y-=1 #zero to y
 while x <= y
-  format=[]
-  cando=[]
-  os=[]
-  query=plinks[x].chomp
-  kvr=MetaInspector.new(query) #this data needs alot of work
-  pdoc=kvr.parsed_document
-  ptext=pdoc.text
-  pachinko=Pachinko.new
-  pachinko.type(pdoc, format)     #100 lines
-  pachinko.platform(pdoc, os)     #of code
-  pachinko.function(ptext, cando) #in 3 method calls
-  hash=kvr.to_hash
-  hash.delete('title')
-  hash.delete('links')
-  hash.delete('internal_links')
-  hash.delete('images')
-  hash.delete('charset')
-  hash.delete('feed')
-  hash.delete('content_type')
-  meta=hash['meta']
-  hash.delete('meta')
-  name=meta['name']
-  name.delete('description')
-  name.delete('og:image')
-  name.delete('msapplication_tilecolor')
-  name.delete('msapplication_tileimage')
-  extr=hash['external_links']
-  extr=extr.reject {|url| url =~ /KVR-Audio/}
-  extr=extr.reject {|url| url =~ /kvraudio/}
-  hash['external_links']=extr
-  meta=hash.merge(name)
-  meta['link']=meta['url']
-  meta['plink']=meta['external_links']
-  meta['tags']=meta['keywords']
-  keyw=meta['tags'].split(', ') #now only array in hash
-  meta['tags']=keyw
-  meta['atitle']=meta['og:title']
-  ntitle=meta['atitle'].gsub(/ -  Details/, '')
-  dsplit=ntitle.split(/ by /) #take values and leave the rest
-  meta['atitle']=dsplit[0].to_s
-  meta['dev']=dsplit[1].to_s #new pair
-  about=pdoc.at_css('.kvrproductimages').parent.text #better summary
-  meta['summary']=about #replace with complete product info
-  meta.delete('url')
-  meta.delete('external_links')
-  meta.delete('keywords')
-  meta.delete('og:title')
-  meta.delete('og:description') #ditch original keys
-  meta=meta.sort #meta is now an array of arrays, unacceptable!
-  atitle=meta.assoc('atitle')
-  dev=meta.assoc('dev')
-  link=meta.assoc('link')
-  plink=meta.assoc('plink')
-  summary=meta.assoc('summary')
-  tags=meta.assoc('tags') #extract each from array
-  newhash={}
-  newhash['atitle']=atitle[1] #assemble clean hash for JSON
-  if cando.length > 1
-    newhash['cando']=cando
-  elsif cando.length == 1
-    cando=cando[0].to_s
-    newhash['cando']=cando
-  else
-    newhash['cando']=''
-  end
-  newhash['dev']=dev[1]
-  if format.length > 1
-    newhash['format']=format
-  elsif format.length == 1
-    format=format[0].to_s
-    newhash['format']=format
-  else
-    newhash['format']=''
-  end
-  newhash['link']=link[1]
-  if os.length > 1 #so many conditions...
-    newhash['os']=os
-  elsif os.length == 1
-    os=os[0].to_s
-    newhash['os']=os
-  else
-    newhash['os']=''
-  end
-  ple=plink[1]
-  if ple.length == 1
-    ple=ple[0].to_s
-  end
-  plink[1]=ple
-  newhash['plink']=plink[1]
-  se=summary[1]
-  se=se.gsub(/^\s*/, '')
-  se=se.gsub(/\s*$/, '') #strip beginning and ending whitespace
-  summary[1]=se
-  newhash['summary']=summary[1]
-  newhash['tags']=tags[1] #ugh, that was an ordeal
-  tofile=JSON.pretty_generate(newhash) #make it more readable
   filename="json/#{x}.json"
-  file=File.new(filename, "w+")
-  file.print tofile #Et voilà! Product info in JSON format.
-  file.close
-  x+=1
-  print '.'
+  if FileTest.exist?(filename) == true
+    print 'x'
+    x+=1
+  else
+    formats=[]
+    capabilities=[]
+    platform=[]
+    query=plinks[x].chomp
+    kvr=MetaInspector.new(query) #this data needs alot of work
+    pdoc=kvr.parsed_document
+    ptext=pdoc.text
+    if ptext =~ /product is no longer listed at KVR Audio/ || pdoc.at_css('#pluginsblock div p') == nil
+      print 'x'
+      x+=1
+    else
+      pachinko=Pachinko.new
+      pachinko.type(pdoc, formats)
+      pachinko.os(pdoc, platform)
+      pachinko.function(ptext, capabilities)
+      hash=kvr.to_hash
+      hash.delete('title')
+      hash.delete('links')
+      hash.delete('internal_links')
+      hash.delete('images')
+      hash.delete('charset')
+      hash.delete('feed')
+      hash.delete('content_type')
+      meta=hash['meta']
+      hash.delete('meta')
+      name=meta['name']
+      name.delete('description')
+      name.delete('og:image')
+      name.delete('msapplication_tilecolor')
+      name.delete('msapplication_tileimage')
+      extr=hash['external_links']
+      extr=extr.reject {|url| url =~ /KVR-Audio/}
+      extr=extr.reject {|url| url =~ /kvraudio/}
+      hash['external_links']=extr
+      meta=hash.merge(name)
+      meta['link']=meta['url']
+      meta['productlink']=meta['external_links']
+      meta['taglist']=meta['keywords']
+      keyw=meta['taglist'].split(', ') #now only array in hash
+      meta['taglist']=keyw
+      meta['title']=meta['og:title']
+      ntitle=meta['title'].gsub(/ -  Details/, '')
+      dsplit=ntitle.split(/ by /) #take values and leave the rest
+      meta['title']=dsplit[0].to_s
+      meta['developer']=dsplit[1].to_s #new pair
+      about=pdoc.at_css('#pluginsblock div p').text #better summary
+      meta['summary']=about #replace with complete product info
+      meta.delete('url')
+      meta.delete('external_links')
+      meta.delete('keywords')
+      meta.delete('og:title')
+      meta.delete('og:description') #ditch original keys
+      meta=meta.sort #meta is now an array of arrays, unacceptable!
+      title=meta.assoc('title')
+      developer=meta.assoc('developer')
+      link=meta.assoc('link')
+      productlink=meta.assoc('productlink')
+      summary=meta.assoc('summary')
+      taglist=meta.assoc('taglist') #extract each from array
+      ta=taglist[1].sort
+      taglist[1]=ta
+      newhash={}
+      newhash['_id']=x.to_s
+      newhash['title']=title[1] #assemble clean hash for JSON
+      if capabilities.length > 1
+        newhash['capabilities']=capabilities
+      elsif capabilities.length == 1
+        capabilities=capabilities[0].to_s
+        newhash['capabilities']=capabilities
+      else
+        newhash['capabilities']=''
+      end
+      newhash['developer']=developer[1]
+      if formats.length > 1
+        newhash['formats']=formats
+      elsif formats.length == 1
+        formats=formats[0].to_s
+      newhash['formats']=formats
+      else
+        newhash['formats']=''
+      end
+      newhash['link']=link[1]
+      if platform.length > 1 #so many conditions...
+        newhash['platform']=platform
+      elsif platform.length == 1
+        platform=platform[0].to_s
+        newhash['platform']=platform
+      else
+        newhash['platform']=''
+      end
+      ple=productlink[1]
+      if ple.length == 1
+        ple=ple[0].to_s
+      end
+      productlink[1]=ple
+      newhash['productlink']=productlink[1]
+      se=summary[1]
+      se=se.gsub(/^\s*/, '')
+      se=se.gsub(/\s*$/, '') #strip beginning and ending whitespace
+      summary[1]=se
+      newhash['summary']=summary[1]
+      newhash['taglist']=taglist[1] #ugh, that was an ordeal
+      tofile=JSON.generate(newhash)
+      #tofile=JSON.pretty_generate(newhash) #make it more readable
+      file=File.new(filename, "w+")
+      file.print tofile #Et voilà! JSON-formatted product info.
+      file.close
+      x+=1
+      print '.'
+    end
+  end
 end
 puts 'done.'
