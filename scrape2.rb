@@ -88,15 +88,15 @@ class Pachinko #Ever played Pachinko?
     if parsed.dssi(pdoc) != nil then formats.push "DSSI"; end
     if parsed.re(pdoc) != nil then formats.push "Rack Extension"; end
   end
-  def os(pdoc, platform)
+  def os(pdoc, platforms)
     parsed=Parsed.new
-    if parsed.win(pdoc) != nil then platform.push "Windows"; end
-    if parsed.win64(pdoc) != nil then platform.push "Windows x64"; end
-    if parsed.mac(pdoc) != nil then platform.push "Mac OSX"; end
-    if parsed.mac64(pdoc) != nil then platform.push "Mac x64"; end
-    if parsed.lin(pdoc) != nil then platform.push "Linux"; end
-    if parsed.ios(pdoc) != nil then platform.push "iOS"; end
-    if parsed.droid(pdoc) != nil then platform.push "Android"; end
+    if parsed.win(pdoc) != nil then platforms.push "Windows"; end
+    if parsed.win64(pdoc) != nil then platforms.push "Windows x64"; end
+    if parsed.mac(pdoc) != nil then platforms.push "Mac OSX"; end
+    if parsed.mac64(pdoc) != nil then platforms.push "Mac x64"; end
+    if parsed.lin(pdoc) != nil then platforms.push "Linux"; end
+    if parsed.ios(pdoc) != nil then platforms.push "iOS"; end
+    if parsed.droid(pdoc) != nil then platforms.push "Android"; end
   end
   def function(ptext, capabilities)
     txt=Txt.new
@@ -120,7 +120,7 @@ while x <= y
   else
     formats=[]
     capabilities=[]
-    platform=[]
+    platforms=[]
     query=plinks[x].chomp
     kvr=MetaInspector.new(query) #this data needs alot of work
     pdoc=kvr.parsed_document
@@ -131,7 +131,7 @@ while x <= y
     else
       pachinko=Pachinko.new
       pachinko.type(pdoc, formats)
-      pachinko.os(pdoc, platform)
+      pachinko.os(pdoc, platforms)
       pachinko.function(ptext, capabilities)
       hash=kvr.to_hash
       hash.delete('title')
@@ -200,13 +200,13 @@ while x <= y
         newhash['formats']=''
       end
       newhash['link']=link[1]
-      if platform.length > 1 #so many conditions...
-        newhash['platform']=platform
-      elsif platform.length == 1
-        platform=platform[0].to_s
-        newhash['platform']=platform
+      if platforms.length > 1 #so many conditions...
+        newhash['platforms']=platforms
+      elsif platforms.length == 1
+        platforms=platforms[0].to_s
+        newhash['platforms']=platforms
       else
-        newhash['platform']=''
+        newhash['platforms']=''
       end
       ple=productlink[1]
       if ple.length == 1
