@@ -27,7 +27,8 @@ class First
         plinks.push x
       end
     end
-    filename="alllinks.txt" #write to big list of 2500+ products
+    filename="plinks.txt"
+    #filename="alllinks.txt" #write to big list of 2500+ products
     if File.exist?(filename) == true
       file=File.open(filename, "a")
     else
