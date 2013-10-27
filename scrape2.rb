@@ -113,7 +113,11 @@ x=0
 y=plinks.length
 y-=1 #zero to y
 while x <= y
-  filename="json/#{x}.json"
+  if x.to_s.length == 1 then filename="json/000#{x}.json"
+  elsif x.to_s.length == 2 then filename="json/00#{x}.json"
+  elsif x.to_s.length == 3 then filename="json/0#{x}.json"
+  else filename="json/#{x}.json"
+  end
   if FileTest.exist?(filename) == true
     print 'x'
     x+=1
