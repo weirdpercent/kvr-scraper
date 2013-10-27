@@ -123,7 +123,7 @@ while x <= y
     platforms=[]
     query=plinks[x].chomp
     kvr=MetaInspector.new(query) #this data needs alot of work
-    pdoc=kvr.parsed_document
+    pdoc=kvr.parsed
     ptext=pdoc.text
     if ptext =~ /product is no longer listed at KVR Audio/ || pdoc.at_css('#pluginsblock div p') == nil
       print 'x'
@@ -159,8 +159,8 @@ while x <= y
       keyw=meta['taglist'].split(', ') #now only array in hash
       meta['taglist']=keyw
       meta['title']=meta['og:title']
-      ntitle=meta['title'].gsub(/ -  Details/, '')
-      dsplit=ntitle.split(/ by /) #take values and leave the rest
+      ntitle=meta['title'].gsub(/ -  Details/, "")
+      dsplit=ntitle.split(" by ") #take values and leave the rest
       meta['title']=dsplit[0].to_s
       meta['developer']=dsplit[1].to_s #new pair
       about=pdoc.at_css('#pluginsblock div p').text #better summary
