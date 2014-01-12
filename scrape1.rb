@@ -29,11 +29,11 @@ class First
     end
     #filename="plinks.txt"
     filename="alllinks.txt" #write to big list of 2500+ products
-    #if File.exist?(filename) == true
+    if File.exist?(filename) == true
       file=File.open(filename, "w+")
-    #else
-      #file=File.new(filename, "w+")
-    #end
+    else
+      file=File.new(filename, "w+")
+    end
     plinks.each do |x|
       prefix=x.gsub(/http:\/\/www.kvraudio.com\/product\//, "") # strip URL before product name
       suffix=prefix.gsub(/-by-\w*/, "") # strip developer
