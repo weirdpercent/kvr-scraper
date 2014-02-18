@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'json/add/core'
 require 'json/pure'
 require 'couchrest'
@@ -130,6 +131,9 @@ while x <= y
     pdoc=kvr.parsed
     ptext=pdoc.text
     if ptext =~ /product is no longer listed at KVR Audio/ || pdoc.at_css('#pluginsblock div p') == nil
+      ul=File.open('unlisted.txt', "a")
+      ul.puts query
+      ul.close
       print 'x'
       x+=1
     else
